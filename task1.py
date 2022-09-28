@@ -14,12 +14,11 @@ def sum_diginal_number(number):
 
 
 number = input('Введите число: ' )
-if '.' in number:
-    number_list = number.split('.')
-    integer_part = int(number_list[0])
-    fractional_part = int(number_list[1])
-    sum = sum_diginal_number(integer_part) + sum_diginal_number(fractional_part)
+replacement = {'-': None, '.': None}
+result_number = number.maketrans(replacement)
+number = number.translate(result_number)
+if number.isdigit():
+    sum = sum_diginal_number(int(number))
+    print(f'Сумма цифр числа равна: {sum}')
 else:
-    number = int(number)
-    sum = sum_diginal_number(number)
-print(f'Сумма цифр числа равна: {sum}')
+    print('Недопустимый ввод. Можно вводить только числа')
