@@ -21,4 +21,4 @@ if number.isdigit():
     sum = sum_diginal_number(int(number))
     print(f'Сумма цифр числа равна: {sum}')
 else:
-    print('Недопустимый ввод. Можно вводить только числа')
+    print('Недопустимый ввод. Можно вводить только числа.')
