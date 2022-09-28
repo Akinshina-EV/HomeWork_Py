@@ -5,7 +5,7 @@
 # 0,56 -> 11
 #
 
-def sum_diginal_number(number):
+def sum_digital_number(number):
     sum = 0
     while (number != 0):
         sum = sum + number % 10
@@ -18,7 +18,7 @@ replacement = {'-': None, '.': None}
 result_number = number.maketrans(replacement)
 number = number.translate(result_number)
 if number.isdigit():
-    sum = sum_diginal_number(int(number))
-    print(f'Сумма цифр числа равна: {sum}')
+    sum_digits = sum_digital_number(int(number))
+    print(f'Сумма цифр числа равна: {sum_digits}')
 else:
     print('Недопустимый ввод. Можно вводить только числа.')

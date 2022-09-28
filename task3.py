@@ -9,11 +9,11 @@
 
 n = input('Введите натуральное число n: ' )
 progression = []
-sum = 0
+sum_progression = 0
 if n.isdigit():
     for i in range(1, int(n) + 1):
         progression.append((1 + 1 / i) ** i)
-        sum+= progression[i - 1]
-    print(sum)
+        sum_progression += progression[i - 1]
+    print(sum_progression)
 else:
     print('Недопустимый ввод. Можно вводить только натуральное число.')
