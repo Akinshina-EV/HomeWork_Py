@@ -14,4 +14,4 @@ if N.isdigit():
         product_of_numbers.append(number_of_progression)
     print(product_of_numbers)
 else:
-    print('Недопустимый ввод. Можно вводить только натуральные числа.')
+    print('Недопустимый ввод. Можно вводить только натуральное число.')
