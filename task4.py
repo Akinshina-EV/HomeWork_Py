@@ -4,26 +4,26 @@
 
 import random
 
-
-N = input('Введите натуральное число N: ' )
-list_of_N_elements = []
-position = [45, 20, 4, 92, 10, 5, 79, 39, 63, 67,
-             2, 52, 83, 59, 18, 41, 11, 22, 90, 3]
-position.sort()
-print(position)
-if N.isdigit():
-    N = int(N)
+n = input('Введите натуральное число N: ')
+list_of_n_elements = []
+data = open('file.txt', 'r')
+position = [line.strip() for line in data]
+data.close()
+result_position = [int(item) for item in position]
+result_position.sort()
+index = []
+if n.isdigit():
+    n = int(n)
     prodact = 1
-    for i in range(N):
-        list_of_N_elements.append(random.randint(N * (-1), N))
-    print(list_of_N_elements)
-    for j in position:
-        if j < len(list_of_N_elements):
-            index = j
-            prodact = prodact * list_of_N_elements[index]
-            print(prodact)
+    for i in range(n):
+        list_of_n_elements.append(random.randint(n * (-1), n))
+    print(f'Исходный список: {list_of_n_elements}')
+    for j in result_position:
+        if j < len(list_of_n_elements):
+            index.append(j)
+            prodact *= list_of_n_elements[j]
         else:
-            break
-    # print(prodact)
+            continue
+    print(f'Произведение элементов на позициях {index}: {prodact}')
 else:
     print('Недопустимый ввод. Можно вводить только натуральное число.')

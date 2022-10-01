@@ -5,20 +5,16 @@
 # 0,56 -> 11
 #
 
-def sum_digital_number(number):
-    sum = 0
-    while (number != 0):
-        sum = sum + number % 10
-        number = number // 10
-    return sum
 
+number = input('Введите число: ')
+number = number.replace('-', '').replace('.', '').replace(',', '')
 
-number = input('Введите число: ' )
-replacement = {'-': None, '.': None}
-result_number = number.maketrans(replacement)
-number = number.translate(result_number)
 if number.isdigit():
-    sum_digits = sum_digital_number(int(number))
+    number = int(number)
+    sum_digits = 0
+    while number != 0:
+        sum_digits += number % 10
+        number //= 10
     print(f'Сумма цифр числа равна: {sum_digits}')
 else:
     print('Недопустимый ввод. Можно вводить только числа.')

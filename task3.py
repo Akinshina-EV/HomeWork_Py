@@ -7,7 +7,7 @@
 # 2 -> 4.25
 # 3 -> 6.62037037037037
 
-n = input('Введите натуральное число n: ' )
+n = input('Введите натуральное число n: ')
 progression = []
 sum_progression = 0
 if n.isdigit():
