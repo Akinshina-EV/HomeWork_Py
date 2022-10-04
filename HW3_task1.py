@@ -6,11 +6,8 @@
 # - [2, 3, 5, 9, 3] -> на нечётных позициях элементы 3 и 9, ответ: 12
 
 
-from file_def import get_list_int
-input_list = get_list_int()
+from file_def import get_list
+
+input_list = get_list()
 print(f'Сумма элементов списка, стоящих на нечетных позициях: '
       f'{sum(el for i, el in enumerate(input_list) if i % 2)}')
-
-
-
-
