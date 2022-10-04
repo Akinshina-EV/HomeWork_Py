@@ -18,7 +18,7 @@ for j in range(-limit_fib, 0):
     neg_part_fib.append(int(math.pow((-1), (j + 1)) * pos_part_fib[-j]))
 fib_list = neg_part_fib + pos_part_fib
 if limit_fib == 0:
-    print("0")
+    print(0)
 else:
     print(f'Список чисел Фибоначчи для последовательности ({-limit_fib}, '
           f'{limit_fib}):\n{fib_list}')
