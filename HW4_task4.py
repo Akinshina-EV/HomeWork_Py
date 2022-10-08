@@ -17,9 +17,9 @@ def get_pol(power, limit_value_coefficient):
     coefficient = [random.randint(0, limit_value_coefficient) for _ in
                    range(power + 1)]
     x = symbols('x')
-    list_of_variable = list([x ** i for i in range(power + 1)].__reversed__())
+    list_of_variable = list([x ** i for i in reversed(range(power + 1))])
     pol = sum(map(np.prod, (zip(coefficient, list_of_variable))))
-    return str(pol).replace('**', '^') + ' = 0'
+    return f'{str(pol).replace("**", "^")} = 0'
 
 
 if __name__ == '__main__':

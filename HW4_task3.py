@@ -8,6 +8,7 @@ count = int(input(f'Задайте длину списка числовой по
 number_list = [random.randint(1, count) for _ in range(count)]
 result_list = []
 print(f'Исходный список: {number_list}')
+
 for i in range(count):
     mark = True
     for j in range(count):
