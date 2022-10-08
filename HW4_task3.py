@@ -3,10 +3,9 @@
 
 
 import random
-from typing import List
 
 count = int(input(f'Задайте длину списка числовой последовательности: '))
-number_list = [random.randint(1, count) for k in range(count)]
+number_list = [random.randint(1, count) for _ in range(count)]
 result_list = []
 print(f'Исходный список: {number_list}')
 for i in range(count):
