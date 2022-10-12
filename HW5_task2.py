@@ -66,7 +66,6 @@ def computer_bot_turn(count, difficult):
         candies_taken = count % (CANDIES_TAKE + 1)
         if candies_taken == 0:
             candies_taken = random.randint(1, CANDIES_TAKE)
-
     print(f'Компьютер берет {candies_taken} конфет.')
     count -= candies_taken
     print(f'Осталось {count} конфет.\n')
@@ -88,19 +87,15 @@ if opponent:
             break
     print(f'\nПобедил Игрок {current_player}!\nПоздравляем!!!')
 
-selection = False
-level = options(selection)
-
 if not opponent:
+    selection = False
+    level = options(selection)
     while True:
         if current_player == player_1:
             candies_count = human_turn(current_player, candies_count)
-            current_player = player_2 if current_player == player_1 else \
-                player_1
         else:
             candies_count = computer_bot_turn(candies_count, level)
-            current_player = player_2 if current_player == player_1 else \
-                player_1
+        current_player = player_2 if current_player == player_1 else player_1
         if 0 <= candies_count <= CANDIES_TAKE:
             break
     print(f'Победил Игрок {current_player}!\nПоздравляем!!!')
