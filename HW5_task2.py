@@ -13,179 +13,94 @@
 
 import random
 
-
-def get_first_player(count):
-    return player_1 if random.randint(1, count) == 1 else player_2
+CANDIES_TAKE = 28
 
 
-candies_count = 100
-candies_take = 28
-print(f'Добро пожаловать в игру "{candies_count} конфета!"')
-opponent = int(input('Выберете соперника: "1" - Человек, "2" - Компьютер: \n'))
-
-if opponent == 1:
-    player_1, player_2 = input('Введите имя Игрока 1: '), input(
-        'Введите имя Игрока 2: ')
-    current_player = get_first_player(3)
-    print(
-        f'\nПроведем жеребьевку!\nПервый ход делает Игрок {current_player}\n')
-    print(f'Перед вами {candies_count} конфета. За один ход можно забрать не '
-          f'более чем {candies_take} конфеты.')
+def options(choice):
     while True:
-        candies_taken = int(input(f'\nВведите сколько конфет берет Игрок '
-                                  f'{current_player}: '))
-        if 1 <= candies_taken <= candies_take:
-            current_player = player_2 if current_player == player_1 else \
-                player_1
-            candies_count -= candies_taken
-            print(f'Осталось {candies_count} конфет.')
+        if choice:
+            category = input(
+                f'Выберете соперника: "1" - Человек, "2" - Компьютер: \n')
         else:
-            candies_taken = int(input(
-                f'\nБольше {candies_take} конфет за ход брать нельзя!\n'
-                f'Введите сколько конфет берет Игрок {current_player}: '))
-            if 1 <= candies_taken <= candies_take:
-                current_player = player_2 if current_player == player_1 else \
-                    player_1
-                candies_count -= candies_taken
-                print(f'Осталось {candies_count} конфет.')
-        if 0 <= candies_count <= candies_take:
+            category = input('Выберете уровень сложности игры: "1" - легкий, '
+                             '"2" - сложный: \n')
+        if category.isdigit():
+            category = int(category)
+            if category in [1, 2]:
+                category = True if category == 1 else False
+                return category
+        print('Некорректный ввод. Попробуйте еще раз!')
+
+
+def greetings(count, gamer):
+    if gamer:
+        player1 = input('Введите имя Игрока 1: ')
+        player2 = input('Введите имя Игрока 2: ')
+    else:
+        player1 = input('Введите имя Игрока: ')
+        player2 = 'Компьютер'
+    print(f'\nПеред вами {count} конфета. За один ход можно забрать не '
+          f'более чем {CANDIES_TAKE} конфеты.')
+    cur_player = random.choice([player1, player2])
+    print(
+        f'\nПроведем жеребьевку!\nПервый ход делает Игрок {cur_player}\n')
+    return player1, player2, cur_player
+
+
+def human_turn(player, count):
+    while True:
+        candies_taken = int(input(f'Введите сколько конфет берет Игрок '
+                                  f'{player}: '))
+        if 1 <= candies_taken <= CANDIES_TAKE:
+            count -= candies_taken
+            print(f'Осталось {count} конфет.\n')
+            return count
+        else:
+            print(f'\nБольше {CANDIES_TAKE} конфет за ход брать нельзя!\n')
+
+
+def computer_bot_turn(count, difficult):
+    if difficult:
+        candies_taken = random.randint(1, CANDIES_TAKE)
+    else:
+        candies_taken = count % (CANDIES_TAKE + 1)
+        if candies_taken == 0:
+            candies_taken = random.randint(1, CANDIES_TAKE)
+
+    print(f'Компьютер берет {candies_taken} конфет.')
+    count -= candies_taken
+    print(f'Осталось {count} конфет.\n')
+    return count
+
+
+candies_count = 2021
+print(f'Добро пожаловать в игру "{candies_count} конфета!"')
+selection = True
+opponent = options(selection)
+player_1, player_2, current_player = greetings(candies_count, opponent)
+
+if opponent:
+    while True:
+        candies_count = human_turn(current_player, candies_count)
+        current_player = player_2 if current_player == player_1 else \
+            player_1
+        if 0 <= candies_count <= CANDIES_TAKE:
             break
     print(f'\nПобедил Игрок {current_player}!\nПоздравляем!!!')
 
-elif opponent == 2:
-    difficulty_level = int(input(
-        'Выберете уровень сложности игры: "1" - легкий, "2" - сложный: \n'))
-    player_1 = input('Введите имя Игрока: ')
-    player_2 = 'Компьютер'
-    current_player = get_first_player(3)
-    print(
-        f'\nПроведем жеребьевку!\nПервый ход делает Игрок {current_player}\n')
-    print(f'Перед вами {candies_count} конфета. За один ход можно забрать не '
-          f'более чем {candies_take} конфет.')
+selection = False
+level = options(selection)
 
-    if difficulty_level == 1:
+if not opponent:
+    while True:
         if current_player == player_1:
-            while True:
-                player_1_take = int(
-                    input(f'\nВведите сколько конфет берет Игрок '
-                          f'{player_1}: '))
-                if 1 <= player_1_take <= 28:
-                    candies_count -= player_1_take
-                    print(f'Осталось {candies_count} конфет.\n')
-                    current_player = player_2
-                else:
-                    while not 1 <= player_1_take <= candies_take:
-                        player_1_take = int(input(
-                         f'Больше {candies_take} конфет за ход брать нельзя!'
-                         f'\nВведите сколько конфет берет Игрок {player_1}: '))
-                    if 1 <= player_1_take <= candies_take:
-                        candies_count -= player_1_take
-                        print(f'Осталось {candies_count} конфет.')
-                        current_player = player_2
-                if candies_count >= candies_take:
-                    player_2_take = random.randint(1, candies_take)
-                    print(f'\nКомпьютер берет {player_2_take} конфет.')
-                    candies_count -= player_2_take
-                    print(f'Осталось {candies_count} конфет.')
-                    current_player = player_1
-                if 0 <= candies_count <= candies_take:
-                    break
-            print(f'\nПобедил Игрок {current_player}!\nПоздравляем!!!')
-
-        elif current_player == player_2:
-            while True:
-                if candies_count >= candies_take:
-                    player_2_take = random.randint(1, candies_take)
-                    print(f'\nКомпьютер берет {player_2_take} конфет.')
-                    candies_count -= player_2_take
-                    print(f'Осталось {candies_count} конфет.')
-                    current_player = player_1
-                if 0 <= candies_count <= candies_take:
-                    break
-                player_1_take = int(input(
-                    f'\nВведите сколько конфет берет Игрок {player_1}: '))
-                if 1 <= player_1_take <= 28:
-                    candies_count -= player_1_take
-                    print(f'Осталось {candies_count} конфет.')
-                    current_player = player_2
-                else:
-                    while not 1 <= player_1_take <= candies_take:
-                        player_1_take = int(input(
-                            f'\nБольше {candies_take} конфет за ход брать '
-                            f'нельзя!\nВведите сколько конфет берет Игрок '
-                            f'{player_1}: '))
-                    if 1 <= player_1_take <= candies_take:
-                        candies_count -= player_1_take
-                        print(f'Осталось {candies_count} конфет.')
-                        current_player = player_2
-                if 0 <= candies_count <= candies_take:
-                    break
-            print(f'Победил Игрок {current_player}!')
-
-    elif difficulty_level == 2:
-        if current_player == player_1:
-            while True:
-                player_1_take = int(input(
-                    f'\nВведите сколько конфет берет Игрок {player_1}: '))
-                if 1 <= player_1_take <= 28:
-                    candies_count -= player_1_take
-                    print(f'Осталось {candies_count} конфет.')
-                    current_player = player_2
-                else:
-                    while not 1 <= player_1_take <= candies_take:
-                        player_1_take = int(input(
-                            f'\nБольше {candies_take} конфет за ход брать '
-                            f'нельзя!\nВведите сколько конфет берет Игрок '
-                            f'{player_1}: '))
-                    if 1 <= player_1_take <= candies_take:
-                        candies_count -= player_1_take
-                        print(f'Осталось {candies_count} конфет.')
-                        current_player = player_2
-                if candies_count >= candies_take:
-                    player_2_take = candies_count % (candies_take + 1)
-                    if player_2_take == 0:
-                        player_2_take = random.randint(1, candies_take)
-                    print(f'\nКомпьютер берет {player_2_take} конфет.')
-                    candies_count -= player_2_take
-                    print(f'Осталось {candies_count} конфет.')
-                    current_player = player_1
-                if 0 <= candies_count <= candies_take:
-                    break
-            print(f'Победил Игрок {current_player}!\nПоздравляем!!!')
-
-        elif current_player == player_2:
-            while True:
-                if candies_count >= candies_take:
-                    player_2_take = candies_count % (candies_take + 1)
-                    if player_2_take == 0:
-                        player_2_take = random.randint(1, candies_take)
-                    print(f'\nКомпьютер берет {player_2_take} конфет.')
-                    candies_count -= player_2_take
-                    print(f'Осталось {candies_count} конфет.')
-                    current_player = player_1
-                if 0 <= candies_count <= candies_take:
-                    break
-                player_1_take = int(
-                    input(f'\nВведите сколько конфет берет Игрок '
-                          f'{player_1}: '))
-                if 1 <= player_1_take <= 28:
-                    candies_count -= player_1_take
-                    print(f'Осталось {candies_count} конфет.')
-                    current_player = player_2
-                else:
-                    while not 1 <= player_1_take <= candies_take:
-                        player_1_take = int(input(
-                            f'\nБольше {candies_take} конфет за ход брать '
-                            f'нельзя!\nВведите сколько конфет берет Игрок '
-                            f'{player_1}: '))
-                    if 1 <= player_1_take <= candies_take:
-                        candies_count -= player_1_take
-                        print(f'Осталось {candies_count} конфет.')
-                        current_player = player_2
-                if 0 <= candies_count <= candies_take:
-                    break
-            print(f'Победил Игрок {current_player}!\nПоздравляем!!!')
-    else:
-        print('Некорректный ввод. Попробуйте войти в игру еще раз!')
-else:
-    print('Некорректный ввод. Попробуйте войти в игру еще раз!')
+            candies_count = human_turn(current_player, candies_count)
+            current_player = player_2 if current_player == player_1 else \
+                player_1
+        else:
+            candies_count = computer_bot_turn(candies_count, level)
+            current_player = player_2 if current_player == player_1 else \
+                player_1
+        if 0 <= candies_count <= CANDIES_TAKE:
+            break
+    print(f'Победил Игрок {current_player}!\nПоздравляем!!!')
