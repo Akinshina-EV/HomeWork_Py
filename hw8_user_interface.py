@@ -7,8 +7,8 @@ def get_number_menu():
           '3 - Добавить запись в БД.\n'
           '4 - Удалить запись в БД.\n'
           '5 - Закрыть БД.\n')
-    number_menu = input('Введите порядковый номер пункта меню: ')
-    return number_menu
+    menu_number = input('Введите порядковый номер пункта меню: ')
+    return menu_number
 
 
 def get_student_new_grade():
@@ -18,7 +18,7 @@ def get_student_new_grade():
     return search_id, new_grade
 
 
-def get_stud_param():
+def get_student_param():
     surname = input('Введите фамилию ученика: ')
     name = input('Введите имя ученика: ')
     year_of_study = input('Введите год обучения ученика: ')
@@ -38,8 +38,8 @@ def get_stud_for_del():
     return stud_for_del
 
 
-def good_bay():
-    print('До свиданья!')
+def good_buy():
+    print('До свидания!')
 
 
 def print_error():

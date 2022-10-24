@@ -1,6 +1,6 @@
-title_data_student = ['Student_id', 'Surname', 'Name', 'Year of study',
+TITLE_DATA_STUDENT = ['Student_id', 'Surname', 'Name', 'Year of study',
                       'Class name']
-title_data_progress = ['Student_id', 'Lesson', 'Grade']
+TITLE_DATA_PROGRESS = ['Student_id', 'Lesson', 'Grade']
 
 DATA_STUDENT = [['1', 'Иванов', 'Иван', '3', 'Г'],
                 ['2', 'Петров', 'Петр', '3', 'А'],
