@@ -1,17 +1,12 @@
-import telebot
-
+from calc_bot_init import bot
 from calc_bot_log import log
-
-with open('bot_token.txt', 'r') as file:
-    token = file.read()
-
-bot = telebot.TeleBot(token)
 
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
     start_text = f'Привет, {message.from_user.first_name}! Что будем ' \
-                 f'вычислять?\nВведите арифметическое выражение.'
+                 f'вычислять?\nВведите арифметическое выражение из чисел и ' \
+                 f'операторов.'
     bot.send_message(message.chat.id, start_text)
 
 
@@ -19,8 +14,17 @@ def start_message(message):
 def eval_command(message):
     log(message)
     expression = message.text
-    bot.send_message(message.chat.id,
-                     f'Результат выражения равен:\n{eval(expression)}')
+    try:
+        eval(expression)
+    except (SyntaxError, NameError):
+        bot.send_message(message.chat.id,
+                         f'Вы ввели некорректное выражение.\nАрифметическое '
+                         f'выражение может содержать только числа и '
+                         f'арифметические операторы.')
+    else:
+        bot.send_message(message.chat.id,
+                         f'Результат выражения равен:\n{eval(expression)}')
 
 
-bot.polling()
+if __name__ == '__main__':
+    bot.polling()
